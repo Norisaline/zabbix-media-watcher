@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  zabbix-media-monitor:
+    build: .
+    container_name: zabbix-media-monitor
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - ZABBIX_API_URL=${ZABBIX_API_URL}
+      - ZABBIX_API_TOKEN=${ZABBIX_API_TOKEN}
+      - MEDIA_CHECK_INTERVAL=${MEDIA_CHECK_INTERVAL}
+      - MEDIA_OFF_DURATION=${MEDIA_OFF_DURATION}
+      - MEDIA_NAMES=${MEDIA_NAMES}
+      - MM_WEBHOOK_URL=${MM_WEBHOOK_URL}
+    volumes:
+      - media-state:/app
+
+volumes:
+  media-state:
